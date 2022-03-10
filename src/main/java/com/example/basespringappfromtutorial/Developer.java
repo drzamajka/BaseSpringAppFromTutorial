@@ -2,21 +2,21 @@ package com.example.basespringappfromtutorial;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Developer")
 public class Developer {
 
     @Id
+	@Column(name = "id")
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	@Column(name="firstName", nullable=false, length=255)
 	private String firstName;
+	@Column(name="lastName", nullable=false, length=255)
 	private String lastName;
+	@Column(name="email", nullable=false, length=255)
 	private String email;
 	@ManyToMany
 	private List<Skill> skills;

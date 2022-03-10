@@ -1,16 +1,16 @@
 package com.example.basespringappfromtutorial;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Skill")
 public class Skill {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	@Column(name="label", nullable=false, length=255)
     private String label;
+	@Column(name="description", nullable=false, length=255)
     private String description;
 
     public Skill() {

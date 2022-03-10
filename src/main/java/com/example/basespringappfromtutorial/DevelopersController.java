@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Controller;
 
+
 @Controller
 public class DevelopersController {
 
@@ -27,7 +28,7 @@ public class DevelopersController {
 
     @RequestMapping("/developer/{id}")
     public String developer(@PathVariable Long id, Model model) {
-        model.addAttribute("developer", repository.findOne(id));
+        model.addAttribute("developer", repository.findById(id).get());
         model.addAttribute("skills", skillRepository.findAll());
         return "developer";
     }
@@ -54,15 +55,15 @@ public class DevelopersController {
 
     @RequestMapping(value="/developer/{id}/skills", method=RequestMethod.POST)
     public String developersAddSkill(@PathVariable Long id, @RequestParam Long skillId, Model model) {
-        Skill skill = skillRepository.findOne(skillId);
-        Developer developer = repository.findOne(id);
+        Skill skill = skillRepository.findById(skillId).get();
+        Developer developer = repository.findById(id).get();
 
         if (developer != null) {
             if (!developer.hasSkill(skill)) {
                 developer.getSkills().add(skill);
             }
             repository.save(developer);
-            model.addAttribute("developer", repository.findOne(id));
+            model.addAttribute("developer", repository.findById(id).get());
             model.addAttribute("skills", skillRepository.findAll());
             return "redirect:/developer/" + developer.getId();
         }
